@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
-import 'dart:math';
 
-main() {
-  runApp(MyApp());
-}
+void main() => runApp(MyApp());
 
-class ChangableWidget extends StatefulWidget {
+/// This is the main application widget.
+class MyApp extends StatelessWidget {
+  static const String _title = 'Flutter Code Sample';
+
   @override
-  State<StatefulWidget> createState() {
-    return MyWeedClickerState();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: _title,
+      home: MyStatefulWidget(),
+    );
   }
 }
 
-class MyWeedClickerState extends State {
+class HomePageWidget extends StatefulWidget {
+  HomePageWidget({Key key}) : super(key: key);
+
+  @override
+  _HomePageWidgetState createState() => _HomePageWidgetState();
+}
+
+class _HomePageWidgetState extends State<HomePageWidget> {
   double weedInGram = 0.00;
   double clickWeight = 0.01;
 
@@ -49,15 +59,62 @@ class MyWeedClickerState extends State {
   }
 }
 
-class MyApp extends StatelessWidget {
+/// This is the stateful widget that the main application instantiates.
+class MyStatefulWidget extends StatefulWidget {
+  MyStatefulWidget({Key key}) : super(key: key);
+
+  @override
+  _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
+}
+
+/// This is the private State class that goes with MyStatefulWidget.
+class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('MyWeedClicker'),
-        ),
-        body: ChangableWidget(),
+    return Scaffold(
+      body: HomePageWidget(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.spa),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.attach_money),
+            label: 'Shop',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.green[400],
+        onTap: _onItemTapped,
       ),
     );
   }
