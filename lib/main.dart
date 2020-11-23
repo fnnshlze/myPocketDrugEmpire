@@ -1,31 +1,54 @@
+import 'dart:async';
 import 'package:biggernumber/pageviewcontroller.dart';
 import 'package:flutter/material.dart';
-import 'settings.dart';
 import 'store.dart';
+import 'init.dart';
 
 void main() => runApp(MyApp());
 
 /// This is the main application widget.
 class MyApp extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
+  User user = new User();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: _title,
-      home: PageViewEmpire(),
+      home: PageViewEmpire(user),
     );
   }
 }
 
 class HomePageWidget extends StatefulWidget {
-  HomePageWidget({Key key}) : super(key: key);
+  User user = new User();
+  HomePageWidget(User user, {Key key}) : super(key: key){
+   this.user = user;
+  }
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  _HomePageWidgetState createState() => _HomePageWidgetState(user);
 
 }
 class _HomePageWidgetState extends State<HomePageWidget> {
-  double weedInGram = 0.00;
+  User user = new User();
+  _HomePageWidgetState(User user){
+    this.user = user;
+    this.wpsBox = user.getBoxWps();
+    this.weedInGram = user.weedInGram;
+  }
+  double weedInGram;
   double clickWeight = 0.01;
+  double wpsBox;
+
+  @override
+  void initState() {
+    new Timer.periodic(Duration(seconds: 1), (Timer t) {
+      user.weedInGram+=wpsBox;
+      setState(() {});
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -44,13 +67,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         fit: BoxFit.cover),
                   )),
               onTap: () {
-                weedInGram += clickWeight;
+                user.weedInGram += clickWeight;
                 setState(() {});
               }),
           Container(
             margin: const EdgeInsets.only(top: 70.0),
             child: Text(
-              'Weed in Grams: ' + weedInGram.toStringAsFixed(2),
+              'Weed in Grams: ' + user.weedInGram.toStringAsFixed(2),
               style: TextStyle(fontSize: 20),
             ),
           )

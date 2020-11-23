@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'buildings.dart';
+import 'main.dart';
+import 'init.dart';
 
-class _StorePageWidgetState extends State<StorePageWidget> {
+class StorePageWidgetState extends State<StorePageWidget> {
+  User user = new User();
+  StorePageWidgetState(User user){
+   this.user = user;
+  }
+
   @override
   Widget build (BuildContext txt) {
     return new Scaffold(
@@ -14,46 +22,96 @@ class _StorePageWidgetState extends State<StorePageWidget> {
           children: <Widget>[
            ListTile(
              leading: Image(image: AssetImage("assets/weed.jpg")),
-             title: Text("Test"),
-             trailing: Text(5.toString()),
+             title: Text("Home-Growing Box"),
+             trailing: Text(user.getBoxCount().toString()),
              subtitle: Text(5.toString()+ " Kosten BITCH"),
+            onTap: () {
+               user.box.increaseCount();
+               setState(() {});
+             }
            ),
-            ListTile(
+        /*    ListTile(
               leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Test"),
-              trailing: Text(5.toString()),
+              title: Text("Dealer"),
+              trailing: Text(_dealerCount.toString()),
               subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _dealerCount += clickWeight;
+                  setState(() {});
+                }
             ),
             ListTile(
               leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Test"),
-              trailing: Text(5.toString()),
+              title: Text("Botanists"),
+              trailing: Text(_botanistsCount.toString()),
               subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _botanistsCount += clickWeight;
+                  setState(() {});
+                }
             ),
             ListTile(
               leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Test"),
-              trailing: Text(5.toString()),
+              title: Text("Warehouse"),
+              trailing: Text(_warehouseCount.toString()),
               subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _warehouseCount += clickWeight;
+                  setState(() {});
+                }
             ),
             ListTile(
               leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Test"),
-              trailing: Text(5.toString()),
+              title: Text("Plantation"),
+              trailing: Text(_plantationCount.toString()),
               subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _plantationCount += clickWeight;
+                  setState(() {});
+                }
             ),
             ListTile(
               leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Test"),
-              trailing: Text(5.toString()),
+              title: Text("Port"),
+              trailing: Text(_portCount.toString()),
               subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _portCount += clickWeight;
+                  setState(() {});
+                }
             ),
+            ListTile(
+              leading: Image(image: AssetImage("assets/weed.jpg")),
+              title: Text("Country"),
+              trailing: Text(_countryCount.toString()),
+              subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _countryCount += clickWeight;
+                  setState(() {});
+                }
+            ),
+            ListTile(
+              leading: Image(image: AssetImage("assets/weed.jpg")),
+              title: Text("Planet"),
+              trailing: Text(_planetCount.toString()),
+              subtitle: Text(5.toString()+ " Kosten BITCH"),
+                onTap: () {
+                  _planetCount += clickWeight;
+                  setState(() {});
+                }
+            ),*/
           ],
       ),
     );
   }
 }
 class StorePageWidget extends StatefulWidget {
+  User user = new User();
+  StorePageWidget(User user){
+   this.user = user;
+  }
+
   @override
-  _StorePageWidgetState createState() => _StorePageWidgetState();
+  StorePageWidgetState createState() => StorePageWidgetState(user);
+
 }
