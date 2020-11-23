@@ -5,6 +5,7 @@ class _SettingsPageWidgetState extends State<SettingsPageWidget> {
   Widget build (BuildContext ctxt) {
     return new Scaffold(
       appBar: new AppBar(
+        backgroundColor: Colors.green,
         title: new Text("Settings"),
       ),
       body: new Text("Another Page...!!!!!!"),
