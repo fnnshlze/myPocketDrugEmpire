@@ -28,7 +28,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Scaffold(
+      body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -55,6 +56,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
           )
         ],
       ),
+      ),
     );
   }
 }
@@ -67,6 +69,63 @@ class MyStatefulWidget extends StatefulWidget {
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
 }
 
+class HomeRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Open route'),
+          onPressed: () {
+            // Navigate to second route when tapped.
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class ShopRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Shop Route"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+
+}class SettingsRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Setting Route"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+          },
+          child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
@@ -78,21 +137,46 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       style: optionStyle,
     ),
     Text(
-      'Index 1: Business',
+      'Index 1: Shop',
       style: optionStyle,
     ),
     Text(
-      'Index 2: School',
+      'Index 2: Settings',
       style: optionStyle,
     ),
   ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      switch(_selectedIndex) {
+        case 0: {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MyStatefulWidget()),
+          );
+        }
+        break;
+        case 1: {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ShopRoute()),
+          );
+        }
+        break;
+        case 2: {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SettingsRoute()),
+          );
+        }
+        break;
+        default: {
+          _HomePageWidgetState();
+        }
+        break;
+      }
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,3 +203,5 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     );
   }
 }
+
+
