@@ -33,7 +33,7 @@ class HomePageWidget extends StatefulWidget {
 }
 class _HomePageWidgetState extends State<HomePageWidget> {
   User user = new User();
-  double clickWeight = 100;
+  double clickWeight = 0.1;
   Timer _timer;
 
   _HomePageWidgetState(User user){
