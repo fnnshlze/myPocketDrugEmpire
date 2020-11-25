@@ -45,9 +45,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
              leading: Image(image: AssetImage("assets/homegrow.JPG")),
              title: Text("Home-Growing Box"),
              trailing: Text(user.getBox().count.toString()),
-             subtitle: Text("Upgrade cost: " + user.getBox().getCost().toStringAsFixed(0) + " gram" + "\n" +
-                            "Current WpS: " + user.getBox().getWps().toString() + "\n" +
-                            "WpS Increase: " + "tbd"),
+             subtitle: Text("Buy cost: " + user.getBox().getCost().toStringAsFixed(0) + " gram" + "\n" +
+                            "Current WpS: " + user.getBox().getWps().toStringAsFixed(2)),
             onTap: () {
               errorMessage = null;
                _buyBuilding(user.getBox());
@@ -57,9 +56,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/dealer.JPG")),
                 title: Text("Dealer"),
                 trailing: Text(user.dealer.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.dealer.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.dealer.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.dealer.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.dealer.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.dealer);
@@ -69,9 +67,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/botanist.JPG")),
                 title: Text("Botanist"),
                 trailing: Text(user.botanist.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.botanist.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.botanist.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.botanist.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.botanist.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.botanist);
@@ -81,9 +78,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/warehouse.JPG")),
                 title: Text("Warehouse"),
                 trailing: Text(user.wareHouse.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.wareHouse.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.wareHouse.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.wareHouse.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.wareHouse.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.wareHouse);
@@ -93,9 +89,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/plantation.JPG")),
                 title: Text("Plantation"),
                 trailing: Text(user.plantation.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.plantation.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.plantation.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.plantation.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.plantation.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.plantation);
@@ -105,9 +100,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/ship.JPG")),
                 title: Text("Port"),
                 trailing: Text(user.port.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.port.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.port.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.port.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.port.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.port);
@@ -117,9 +111,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/country.JPG")),
                 title: Text("Country"),
                 trailing: Text(user.country.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.country.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.country.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.country.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.country.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.country);
@@ -129,9 +122,8 @@ class StorePageWidgetState extends State<StorePageWidget> {
                 leading: Image(image: AssetImage("assets/planet.JPG")),
                 title: Text("Planet"),
                 trailing: Text(user.planet.count.toString()),
-                subtitle: Text("Upgrade cost: " + user.planet.getCost().toStringAsFixed(0) + " gram" + "\n" +
-                    "Current WpS: " + user.planet.getWps().toString() + "\n" +
-                    "WpS Increase: " + "tbd"),
+                subtitle: Text("Buy cost: " + user.planet.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.planet.getWps().toStringAsFixed(2)),
                 onTap: () {
                   errorMessage = null;
                   _buyBuilding(user.planet);
