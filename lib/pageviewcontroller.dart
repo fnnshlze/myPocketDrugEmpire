@@ -1,4 +1,6 @@
-import 'package:biggernumber/init.dart';
+import 'dart:async';
+
+import 'package:biggernumber/user.dart';
 import 'package:biggernumber/main.dart';
 import 'package:biggernumber/store.dart';
 import 'package:flutter/material.dart';
@@ -19,16 +21,29 @@ class _PageViewState extends State<PageViewEmpire> {
     this.user = user;
   }
 
-  PageController _controller = PageController(
-    initialPage: 0,
-  );
+  Timer _timer;
 
+  @override
+  void initState() {
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      user.increaseWeedStoredBy(user.getWps());
+    });
+    super.initState();
+  }
 
   @override
   void dispose() {
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
     _controller.dispose();
     super.dispose();
   }
+
+  PageController _controller = PageController(
+    initialPage: 0,
+  );
 
   @override
   Widget build(BuildContext context) {

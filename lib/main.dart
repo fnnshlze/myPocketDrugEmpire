@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:biggernumber/pageviewcontroller.dart';
 import 'package:flutter/material.dart';
 import 'store.dart';
-import 'init.dart';
+import 'user.dart';
 
 void main() => runApp(MyApp());
 
@@ -10,6 +10,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   static const String _title = 'Flutter Code Sample';
   User user = new User();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,28 +26,18 @@ class HomePageWidget extends StatefulWidget {
   HomePageWidget(User user, {Key key}) : super(key: key){
    this.user = user;
   }
+
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState(user);
 
 }
 class _HomePageWidgetState extends State<HomePageWidget> {
   User user = new User();
+  double clickWeight = 100;
+  Timer _timer;
+
   _HomePageWidgetState(User user){
     this.user = user;
-    this.wpsBox = user.getBoxWps();
-    this.weedInGram = user.weedInGram;
-  }
-  double weedInGram;
-  double clickWeight = 0.01;
-  double wpsBox;
-
-  @override
-  void initState() {
-    new Timer.periodic(Duration(seconds: 1), (Timer t) {
-      user.weedInGram+=wpsBox;
-      setState(() {});
-    });
-    super.initState();
   }
 
   @override
@@ -56,6 +47,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 100.0),
+            child: Text(
+              'MyWeedClicker',
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
+          ),
           GestureDetector(
               child: Container(
                   width: 240,
@@ -67,20 +65,44 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         fit: BoxFit.cover),
                   )),
               onTap: () {
-                user.weedInGram += clickWeight;
+                user.increaseWeedStoredBy(clickWeight);
                 setState(() {});
               }),
           Container(
             margin: const EdgeInsets.only(top: 70.0),
             child: Text(
-              'Weed in Grams: ' + user.weedInGram.toStringAsFixed(2),
+              'Weed in Grams: ' + user.getWeedStored().toStringAsFixed(2),
               style: TextStyle(fontSize: 20),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 30.0),
+            child: Text(
+              'Weed per Second: ' + user.getWps().toStringAsFixed(2),
+              style: TextStyle(fontSize: 18),
             ),
           )
         ],
       ),
       ),
     );
+  }
+
+  @override
+  void initState() {
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {});
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
+    super.dispose();
   }
 }
 

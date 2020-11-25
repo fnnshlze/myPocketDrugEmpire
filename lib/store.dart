@@ -1,12 +1,28 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'buildings.dart';
 import 'main.dart';
-import 'init.dart';
+import 'user.dart';
 
 class StorePageWidgetState extends State<StorePageWidget> {
   User user = new User();
+  Timer _timer;
+
   StorePageWidgetState(User user){
    this.user = user;
+  }
+
+  String errorMessage;
+
+  _buyBuilding(Building building){
+    var cost = building.getCost();
+    if(cost > user.getWeedStored()){
+      errorMessage = 'Weed not sufficient to buy ' + building.runtimeType.toString() + '!';
+    } else {
+      building.increaseCount();
+      user.decreaseWeedStoredBy(cost);
+    }
   }
 
   @override
@@ -20,89 +36,135 @@ class StorePageWidgetState extends State<StorePageWidget> {
         ListView(
           padding: const EdgeInsets.all(8),
           children: <Widget>[
+            ListTile(
+                leading: Image(image: AssetImage("assets/weed.jpg")),
+                title: Text("Weed in Grams: "),
+                trailing: Text(user.getWeedStored().toStringAsFixed(2)),
+            ),
            ListTile(
-             leading: Image(image: AssetImage("assets/weed.jpg")),
+             leading: Image(image: AssetImage("assets/homegrow.JPG")),
              title: Text("Home-Growing Box"),
-             trailing: Text(user.getBoxCount().toString()),
-             subtitle: Text(5.toString()+ " Kosten BITCH"),
+             trailing: Text(user.getBox().count.toString()),
+             subtitle: Text("Upgrade cost: " + user.getBox().getCost().toStringAsFixed(0) + " gram" + "\n" +
+                            "Current WpS: " + user.getBox().getWps().toString() + "\n" +
+                            "WpS Increase: " + "tbd"),
             onTap: () {
-               user.box.increaseCount();
+              errorMessage = null;
+               _buyBuilding(user.getBox());
                setState(() {});
              }
-           ),
-        /*    ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Dealer"),
-              trailing: Text(_dealerCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
+           ),ListTile(
+                leading: Image(image: AssetImage("assets/dealer.JPG")),
+                title: Text("Dealer"),
+                trailing: Text(user.dealer.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.dealer.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.dealer.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
                 onTap: () {
-                  _dealerCount += clickWeight;
+                  errorMessage = null;
+                  _buyBuilding(user.dealer);
+                  setState(() {});
+                }
+            ),ListTile(
+                leading: Image(image: AssetImage("assets/botanist.JPG")),
+                title: Text("Botanist"),
+                trailing: Text(user.botanist.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.botanist.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.botanist.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
+                onTap: () {
+                  errorMessage = null;
+                  _buyBuilding(user.botanist);
+                  setState(() {});
+                }
+            ),ListTile(
+                leading: Image(image: AssetImage("assets/warehouse.JPG")),
+                title: Text("Warehouse"),
+                trailing: Text(user.wareHouse.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.wareHouse.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.wareHouse.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
+                onTap: () {
+                  errorMessage = null;
+                  _buyBuilding(user.wareHouse);
+                  setState(() {});
+                }
+            ),ListTile(
+                leading: Image(image: AssetImage("assets/plantation.JPG")),
+                title: Text("Plantation"),
+                trailing: Text(user.plantation.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.plantation.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.plantation.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
+                onTap: () {
+                  errorMessage = null;
+                  _buyBuilding(user.plantation);
+                  setState(() {});
+                }
+            ),ListTile(
+                leading: Image(image: AssetImage("assets/ship.JPG")),
+                title: Text("Port"),
+                trailing: Text(user.port.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.port.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.port.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
+                onTap: () {
+                  errorMessage = null;
+                  _buyBuilding(user.port);
+                  setState(() {});
+                }
+            ),ListTile(
+                leading: Image(image: AssetImage("assets/country.JPG")),
+                title: Text("Country"),
+                trailing: Text(user.country.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.country.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.country.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
+                onTap: () {
+                  errorMessage = null;
+                  _buyBuilding(user.country);
+                  setState(() {});
+                }
+            ),ListTile(
+                leading: Image(image: AssetImage("assets/planet.JPG")),
+                title: Text("Planet"),
+                trailing: Text(user.planet.count.toString()),
+                subtitle: Text("Upgrade cost: " + user.planet.getCost().toStringAsFixed(0) + " gram" + "\n" +
+                    "Current WpS: " + user.planet.getWps().toString() + "\n" +
+                    "WpS Increase: " + "tbd"),
+                onTap: () {
+                  errorMessage = null;
+                  _buyBuilding(user.planet);
                   setState(() {});
                 }
             ),
             ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Botanists"),
-              trailing: Text(_botanistsCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
+                subtitle: Text((errorMessage != null) ? errorMessage : "", style: TextStyle(color: Colors.deepOrangeAccent), ),
                 onTap: () {
-                  _botanistsCount += clickWeight;
                   setState(() {});
                 }
             ),
-            ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Warehouse"),
-              trailing: Text(_warehouseCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
-                onTap: () {
-                  _warehouseCount += clickWeight;
-                  setState(() {});
-                }
-            ),
-            ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Plantation"),
-              trailing: Text(_plantationCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
-                onTap: () {
-                  _plantationCount += clickWeight;
-                  setState(() {});
-                }
-            ),
-            ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Port"),
-              trailing: Text(_portCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
-                onTap: () {
-                  _portCount += clickWeight;
-                  setState(() {});
-                }
-            ),
-            ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Country"),
-              trailing: Text(_countryCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
-                onTap: () {
-                  _countryCount += clickWeight;
-                  setState(() {});
-                }
-            ),
-            ListTile(
-              leading: Image(image: AssetImage("assets/weed.jpg")),
-              title: Text("Planet"),
-              trailing: Text(_planetCount.toString()),
-              subtitle: Text(5.toString()+ " Kosten BITCH"),
-                onTap: () {
-                  _planetCount += clickWeight;
-                  setState(() {});
-                }
-            ),*/
           ],
       ),
     );
+  }
+
+  @override
+  void initState() {
+    _timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
+      setState(() {});
+    });
+    super.initState();
+    errorMessage = null;
+  }
+
+  @override
+  void dispose() {
+    if (_timer != null) {
+      _timer.cancel();
+      _timer = null;
+    }
+    super.dispose();
   }
 }
 class StorePageWidget extends StatefulWidget {
